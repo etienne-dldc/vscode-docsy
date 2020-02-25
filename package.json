@@ -1,25 +1,36 @@
 {
-    "name": "docsy",
-    "displayName": "Docsy",
-    "description": "Support for Docsy syntax",
-    "version": "0.0.1",
-    "engines": {
-        "vscode": "^1.42.0"
-    },
-    "categories": [
-        "Programming Languages"
+  "name": "docsy",
+  "displayName": "Docsy",
+  "description": "Support for Docsy syntax",
+  "version": "0.0.1",
+  "publisher": "etienne-dldc",
+  "repository": "https://github.com/etienne-dldc/vscode-docsy",
+  "engines": {
+    "vscode": "^1.42.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "docsy",
+        "aliases": [
+          "Docsy",
+          "docsy"
+        ],
+        "extensions": [
+          ".docsy"
+        ],
+        "configuration": "./language-configuration.json"
+      }
     ],
-    "contributes": {
-        "languages": [{
-            "id": "docsy",
-            "aliases": ["Docsy", "docsy"],
-            "extensions": [".docsy"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "docsy",
-            "scopeName": "source.docsy",
-            "path": "./syntaxes/docsy.tmLanguage.json"
-        }]
-    }
+    "grammars": [
+      {
+        "language": "docsy",
+        "scopeName": "source.docsy",
+        "path": "./syntaxes/docsy.tmLanguage.json"
+      }
+    ]
+  }
 }
