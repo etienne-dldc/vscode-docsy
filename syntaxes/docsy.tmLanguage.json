@@ -1,0 +1,240 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Docsy",
+  "patterns": [
+    {
+      "include": "#tag"
+    }
+  ],
+  "repository": {
+    "tag": {
+      "patterns": [
+        {
+          "name": "meta.tag.docsy",
+          "begin": "(<\\|)([a-zA-Z](\\.?[a-zA-Z0-9.]+)*)(?=\\b)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.docsy" },
+            "2": { "name": "support.class.component.docsy" }
+          },
+          "end": "(\\|?>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.end.docsy" }
+          },
+          "patterns": [{ "include": "#prop" }]
+        },
+        {
+          "name": "meta.tag.docsy",
+          "match": "(<\\|)([a-zA-Z](\\.?[a-zA-Z0-9.]+)*)(\\|>)",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.begin.docsy" },
+            "2": { "name": "support.class.component.docsy" },
+            "3": { "name": "punctuation.definition.tag.end.docsy" }
+          }
+        },
+        {
+          "name": "meta.tag.docsy",
+          "match": "(<)([a-zA-Z](?:\\.?[a-zA-Z0-9.]+)*)(\\|>)",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.begin.docsy" },
+            "2": { "name": "support.class.component.docsy" },
+            "3": { "name": "punctuation.definition.tag.end.docsy" }
+          }
+        },
+        {
+          "name": "tag.close.docsy",
+          "match": "(\\|>)",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.end.docsy" }
+          }
+        }
+      ]
+    },
+    "prop": {
+      "patterns": [
+        {
+          "name": "meta.tag.attributes.docsy",
+          "begin": "([ \\t\\n\\r]+)([a-zA-Z_][A-Za-z0-9_$]*)(=)",
+          "beginCaptures": {
+            "2": { "name": "entity.other.attribute-name.docsy" },
+            "3": { "name": "meta.tag.docsy" },
+            "4": { "name": "keyword.operator.assignment.docsy" }
+          },
+          "end": "(?=(>| |\\|>))",
+          "patterns": [{ "include": "#expression" }]
+        },
+        {
+          "name": "meta.tag.attributes.docsy",
+          "match": "([ \\t\\n\\r]+)([a-zA-Z_][A-Za-z0-9_$]*)(?=(>| |\\|>))",
+          "captures": {
+            "2": { "name": "entity.other.attribute-name.docsy" }
+          }
+        }
+      ]
+    },
+    "expression": {
+      "patterns": [
+        { "include": "#object" },
+        { "include": "#array" },
+        { "include": "#number" },
+        { "include": "#string" },
+        { "include": "#keyword" },
+        { "include": "#parenthesis" },
+        { "include": "#tag" },
+        { "include": "#identifier" }
+      ]
+    },
+    "keyword": {
+      "name": "keyword.docsy",
+      "patterns": [
+        { "match": "true", "name": "constant.language.boolean.true.docsy" },
+        { "match": "false", "name": "constant.language.boolean.false.docsy" },
+        { "match": "null", "name": "constant.language.null.docsy" },
+        { "match": "undefined", "name": "constant.language.undefined.docsy" }
+      ]
+    },
+    "identifier": {
+      "name": "variable.docsy",
+      "match": "[A-Za-z][A-Za-z0-9_$]*"
+    },
+    "number": {
+      "name": "number.docsy",
+      "patterns": [
+        {
+          "match": "(-?)([\\d]+)",
+          "captures": {
+            "1": { "name": "keyword.operator.arithmetic.docsy" },
+            "2": { "name": "constant.numeric.decimal" }
+          }
+        },
+        {
+          "match": "(-?)([\\d]+)(\\.)([\\d]+)",
+          "captures": {
+            "1": { "name": "keyword.operator.arithmetic.docsy" },
+            "2": { "name": "constant.numeric.decimal" },
+            "3": { "name": "meta.delimiter.decimal.period" },
+            "4": { "name": "constant.numeric.decimal" }
+          }
+        }
+      ]
+    },
+    "string": {
+      "patterns": [
+        {
+          "name": "string.docsy",
+          "begin": "(```)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.string.begin.docsy" }
+          },
+          "end": "(```)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.string.end.docsy" }
+          }
+        },
+        {
+          "name": "string.docsy",
+          "begin": "(\")",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.string.begin.docsy" }
+          },
+          "end": "(\")",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.string.end.docsy" }
+          }
+        },
+        {
+          "name": "string.docsy",
+          "begin": "(')",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.string.begin.docsy" }
+          },
+          "end": "(')",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.string.end.docsy" }
+          }
+        }
+      ]
+    },
+    "parenthesis": {
+      "name": "parenthesis.docsy",
+      "begin": "\\(",
+      "end": "\\)",
+      "patterns": [{ "include": "#expression" }]
+    },
+    "object": {
+      "name": "meta.object-literal.docsy",
+      "begin": "\\{",
+      "end": "\\}",
+      "patterns": [{ "include": "#objectItem" }]
+    },
+    "objectItem": {
+      "patterns": [
+        { "match": ",", "name": "punctuation.separator.key-value.docsy" },
+        {
+          "begin": "([ \\t\\n\\r]+)([A-Za-z][A-Za-z0-9_$]*):",
+          "end": "(?=(\\}|,))",
+          "beginCaptures": {
+            "2": { "name": "meta.object-literal.key.docsy" }
+          },
+          "patterns": [{ "include": "#expression" }]
+        },
+        {
+          "begin": "([ \\t\\n\\r]+)('[^']+'):",
+          "beginCaptures": {
+            "2": { "name": "meta.object-literal.key.docsy" }
+          },
+          "end": "(?=(\\}|,))",
+          "patterns": [{ "include": "#expression" }]
+        },
+        {
+          "begin": "([ \\t\\n\\r]+)(\"[^\"]+\"):",
+          "beginCaptures": {
+            "2": { "name": "meta.object-literal.key.docsy" }
+          },
+          "end": "(?=(\\}|,))",
+          "patterns": [{ "include": "#expression" }]
+        },
+        {
+          "name": "computed.docsy",
+          "begin": "([ \\t\\r]+)(\\[)",
+          "beginCaptures": {
+            "2": { "name": "meta.object-literal.key.docsy" }
+          },
+          "end": "(?=(\\}|,))",
+          "patterns": [{ "include": "#computed" }]
+        },
+        {
+          "name": "spread.docsy",
+          "begin": "([ \\t\\r]+)(\\.\\.\\.)",
+          "beginCaptures": {
+            "2": { "name": "meta.object-literal.key.docsy" }
+          },
+          "end": "(?=(\\}|,))",
+          "patterns": [{ "include": "#expression" }]
+        }
+      ]
+    },
+    "computed": {
+      "patterns": [
+        {
+          "begin": "(\\]:( \t\n)*)",
+          "beginCaptures": {
+            "1": { "name": "meta.object-literal.key.docsy" }
+          },
+          "end": "(?=(\\}|,))",
+          "patterns": [{ "include": "#expression" }]
+        },
+        { "include": "#expression" }
+      ]
+    },
+    "array": {
+      "name": "array.docsy",
+      "begin": "\\[",
+      "end": "\\]",
+      "patterns": [
+        { "match": ",", "name": "meta.tag.docsy" },
+        { "include": "#expression" }
+      ]
+    }
+  },
+  "scopeName": "source.docsy"
+}
