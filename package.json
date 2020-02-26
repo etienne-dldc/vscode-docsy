@@ -20,7 +20,8 @@
           "docsy"
         ],
         "extensions": [
-          ".docsy"
+          ".docsy",
+          ".dy"
         ],
         "configuration": "./language-configuration.json"
       }
