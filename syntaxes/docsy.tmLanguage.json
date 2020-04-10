@@ -4,11 +4,7 @@
   "patterns": [{ "include": "#children" }],
   "repository": {
     "children": {
-      "patterns": [
-        { "include": "#tag" },
-        { "include": "#comments" },
-        { "include": "#inject" }
-      ]
+      "patterns": [{ "include": "#tag" }, { "include": "#comments" }, { "include": "#inject" }]
     },
     "comments": {
       "patterns": [
@@ -44,7 +40,7 @@
         {
           "comment": "Tag",
           "name": "tag.docsy",
-          "begin": "(<\\|)([a-zA-Z]+(\\.[a-zA-Z0-9]+)*)",
+          "begin": "(<\\|)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)",
           "beginCaptures": {
             "1": { "name": "punctuation.docsy" },
             "2": { "name": "opening.tag.docsy" }
@@ -58,11 +54,11 @@
               "beginCaptures": {
                 "1": { "name": "punctuation.docsy" }
               },
-              "end": "(?=((<)([a-zA-Z]+(\\.[a-zA-Z0-9]+)*))?(\\|>))",
+              "end": "(?=((<)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*))?(\\|>))",
               "patterns": [{ "include": "#children" }]
             }
           ],
-          "end": "((<)([a-zA-Z]+(\\.[a-zA-Z0-9]+)*))?(\\|>)",
+          "end": "((<)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*))?(\\|>)",
           "endCaptures": {
             "2": { "name": "punctuation.docsy" },
             "3": { "name": "closing.tag.docsy" },
@@ -85,7 +81,7 @@
         {
           "comment": "Raw Tag",
           "name": "raw.tag.docsy",
-          "begin": "(<#)([a-zA-Z]+(\\.[a-zA-Z0-9]+)*)",
+          "begin": "(<#)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)",
           "beginCaptures": {
             "1": { "name": "punctuation.docsy" },
             "2": { "name": "opening.tag.docsy" }
@@ -99,7 +95,7 @@
               "beginCaptures": {
                 "1": { "name": "punctuation.docsy" }
               },
-              "end": "(?=((<)([a-zA-Z]+(\\.[a-zA-Z0-9]+)*))?(\\#>))",
+              "end": "(?=((<)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*))?(\\#>))",
               "patterns": [
                 {
                   "comment": "Escape in Raw",
@@ -117,7 +113,7 @@
               ]
             }
           ],
-          "end": "((<)([a-zA-Z]+(\\.[a-zA-Z0-9]+)*))?(\\#>)",
+          "end": "((<)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*))?(\\#>)",
           "endCaptures": {
             "2": { "name": "punctuation.docsy" },
             "3": { "name": "closing.tag.docsy" },
@@ -342,10 +338,7 @@
       "name": "array.docsy",
       "begin": "\\[",
       "end": "\\]",
-      "patterns": [
-        { "match": ",", "name": "meta.tag.docsy" },
-        { "include": "#expression" }
-      ]
+      "patterns": [{ "match": ",", "name": "meta.tag.docsy" }, { "include": "#expression" }]
     }
   },
   "scopeName": "source.docsy"
