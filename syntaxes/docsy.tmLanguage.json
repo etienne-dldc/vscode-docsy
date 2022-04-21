@@ -2,9 +2,14 @@
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "Docsy",
   "patterns": [{ "include": "#children" }],
+  "scopeName": "source.docsy",
   "repository": {
     "children": {
-      "patterns": [{ "include": "#tag" }, { "include": "#comments" }, { "include": "#inject" }]
+      "patterns": [
+        { "include": "#tag" },
+        { "include": "#comments" },
+        { "include": "#inject" }
+      ]
     },
     "comments": {
       "patterns": [
@@ -38,122 +43,118 @@
     "tag": {
       "patterns": [
         {
-          "comment": "Tag",
+          "comment": "Line Tag",
           "name": "tag.docsy",
-          "begin": "(<\\|)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)",
+          "begin": "(<\\|\\|)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?",
           "beginCaptures": {
             "1": { "name": "punctuation.docsy" },
             "2": { "name": "opening.tag.docsy" }
           },
           "patterns": [
-            { "include": "#props" },
+            { "include": "#attributes" },
             {
-              "comment": "Tag content",
+              "comment": "Childrens",
               "contentName": "children.tag.docsy",
               "begin": "(>)",
               "beginCaptures": {
                 "1": { "name": "punctuation.docsy" }
               },
-              "end": "(?=((<)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*))?(\\|>))",
+              "end": "(?=^)",
               "patterns": [{ "include": "#children" }]
             }
           ],
-          "end": "((<)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*))?(\\|>)",
+          "end": "(?=^)"
+        },
+        {
+          "comment": "Self closing Tag",
+          "name": "tag.docsy",
+          "begin": "(<\\/)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?",
+          "beginCaptures": {
+            "1": { "name": "punctuation.docsy" },
+            "2": { "name": "opening.tag.docsy" }
+          },
+          "patterns": [{ "include": "#attributes" }],
+          "end": "(>)",
           "endCaptures": {
-            "2": { "name": "punctuation.docsy" },
-            "3": { "name": "closing.tag.docsy" },
-            "5": { "name": "punctuation.docsy" }
+            "1": { "name": "punctuation.docsy" }
           }
         },
         {
-          "comment": "Fragment",
-          "name": "fragment.tag.docsy",
-          "begin": "(<\\|>)",
-          "beginCaptures": {
-            "1": { "name": "punctuation.docsy" }
-          },
-          "end": "(<\\|>)",
-          "endCaptures": {
-            "1": { "name": "punctuation.docsy" }
-          },
-          "patterns": [{ "include": "#children" }]
-        },
-        {
-          "comment": "Raw Tag",
-          "name": "raw.tag.docsy",
-          "begin": "(<#)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)",
+          "comment": "Open / close Tag Raw",
+          "name": "tag.docsy",
+          "begin": "(<#)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?",
           "beginCaptures": {
             "1": { "name": "punctuation.docsy" },
             "2": { "name": "opening.tag.docsy" }
           },
           "patterns": [
-            { "include": "#props" },
+            { "include": "#attributes" },
             {
-              "comment": "Tag content",
+              "comment": "Close with closing tag",
               "contentName": "raw.docsy",
               "begin": "(>)",
               "beginCaptures": {
                 "1": { "name": "punctuation.docsy" }
               },
-              "end": "(?=((<)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*))?(\\#>))",
-              "patterns": [
-                {
-                  "comment": "Escape in Raw",
-                  "name": "fragment.tag.docsy",
-                  "begin": "(<#>)",
-                  "beginCaptures": {
-                    "1": { "name": "punctuation.docsy" }
-                  },
-                  "end": "(<#>)",
-                  "endCaptures": {
-                    "1": { "name": "punctuation.docsy" }
-                  },
-                  "patterns": [{ "include": "#children" }]
-                }
-              ]
+              "end": "(?=(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(#>))"
             }
           ],
-          "end": "((<)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*))?(\\#>)",
+          "end": "(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(#>)",
           "endCaptures": {
-            "2": { "name": "punctuation.docsy" },
+            "1": { "name": "punctuation.docsy" },
             "3": { "name": "closing.tag.docsy" },
             "5": { "name": "punctuation.docsy" }
           }
         },
         {
-          "comment": "Raw Fragment",
-          "name": "fragment.tag.docsy",
-          "contentName": "raw.docsy",
-          "begin": "(<#>)",
+          "comment": "Open / Close Tag",
+          "name": "tag.docsy",
+          "begin": "(<\\|)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?",
           "beginCaptures": {
-            "1": { "name": "punctuation.docsy" }
+            "1": { "name": "punctuation.docsy" },
+            "2": { "name": "opening.tag.docsy" }
           },
-          "end": "(<#>)",
+          "patterns": [
+            { "include": "#attributes" },
+            {
+              "comment": "Childrens",
+              "contentName": "children.tag.docsy",
+              "begin": "(>)",
+              "beginCaptures": {
+                "1": { "name": "punctuation.docsy" }
+              },
+              "end": "(?=(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(\\|>))",
+              "patterns": [{ "include": "#children" }]
+            }
+          ],
+          "end": "(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(\\|>)",
           "endCaptures": {
-            "1": { "name": "punctuation.docsy" }
+            "1": { "name": "punctuation.docsy" },
+            "3": { "name": "closing.tag.docsy" },
+            "5": { "name": "punctuation.docsy" }
           }
         }
       ]
     },
-    "props": {
+    "attributes": {
       "patterns": [
         { "include": "#comments" },
         {
-          "comment": "Prop",
+          "comment": "Attribute",
           "name": "meta.tag.attributes.docsy",
-          "begin": "([ \\t\\n\\r]+|^)([a-zA-Z_][A-Za-z0-9_$]*)(=)(?!(>| |\\|>|$))",
+          "begin": "([ \\t\\n\\r]+|^)([a-zA-Z_][A-Za-z0-9_$]*)(=)(?!(>| |$))",
           "beginCaptures": {
             "2": { "name": "entity.other.attribute-name.docsy" },
             "3": { "name": "meta.tag.docsy" },
             "4": { "name": "keyword.operator.assignment.docsy" }
           },
           "patterns": [{ "include": "#expression" }],
-          "end": "(?=(>| |\\|>))"
+          "end": "(?=(>| ))"
         },
         {
-          "comment": "No value prop",
+          "comment": "Boolean attribute",
           "name": "meta.tag.attributes.docsy",
-          "match": "([ \\t\\n\\r]+|^)([a-zA-Z_][A-Za-z0-9_$]*)(?=(>| |\\|>|$))",
+          "match": "([ \\t\\n\\r]+|^)([a-zA-Z_][A-Za-z0-9_$]*)(?=(>| |$))",
           "captures": {
             "2": { "name": "entity.other.attribute-name.docsy" }
           }
@@ -338,8 +339,10 @@
       "name": "array.docsy",
       "begin": "\\[",
       "end": "\\]",
-      "patterns": [{ "match": ",", "name": "meta.tag.docsy" }, { "include": "#expression" }]
+      "patterns": [
+        { "match": ",", "name": "meta.tag.docsy" },
+        { "include": "#expression" }
+      ]
     }
-  },
-  "scopeName": "source.docsy"
+  }
 }
