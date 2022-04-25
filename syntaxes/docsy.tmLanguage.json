@@ -43,29 +43,6 @@
     "tag": {
       "patterns": [
         {
-          "comment": "Line Tag",
-          "name": "tag.docsy",
-          "begin": "(<\\|\\|)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?",
-          "beginCaptures": {
-            "1": { "name": "punctuation.docsy" },
-            "2": { "name": "opening.tag.docsy" }
-          },
-          "patterns": [
-            { "include": "#attributes" },
-            {
-              "comment": "Childrens",
-              "contentName": "children.tag.docsy",
-              "begin": "(>)",
-              "beginCaptures": {
-                "1": { "name": "punctuation.docsy" }
-              },
-              "end": "(?=^)",
-              "patterns": [{ "include": "#children" }]
-            }
-          ],
-          "end": "(?=^)"
-        },
-        {
           "comment": "Self closing Tag",
           "name": "tag.docsy",
           "begin": "(<\\/)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?",
@@ -74,7 +51,7 @@
             "2": { "name": "opening.tag.docsy" }
           },
           "patterns": [{ "include": "#attributes" }],
-          "end": "(>)",
+          "end": "(\\/>)",
           "endCaptures": {
             "1": { "name": "punctuation.docsy" }
           }
@@ -96,10 +73,10 @@
               "beginCaptures": {
                 "1": { "name": "punctuation.docsy" }
               },
-              "end": "(?=(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(#>))"
+              "end": "(?=(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(\\/>))"
             }
           ],
-          "end": "(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(#>)",
+          "end": "(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(\\/>)",
           "endCaptures": {
             "1": { "name": "punctuation.docsy" },
             "3": { "name": "closing.tag.docsy" },
@@ -123,15 +100,71 @@
               "beginCaptures": {
                 "1": { "name": "punctuation.docsy" }
               },
-              "end": "(?=(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(\\|>))",
+              "end": "(?=(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(\\/>))",
               "patterns": [{ "include": "#children" }]
             }
           ],
-          "end": "(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(\\|>)",
+          "end": "(<)(([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?)(\\/>)",
           "endCaptures": {
             "1": { "name": "punctuation.docsy" },
             "3": { "name": "closing.tag.docsy" },
             "5": { "name": "punctuation.docsy" }
+          }
+        },
+        {
+          "comment": "Line Tag",
+          "name": "tag.docsy",
+          "begin": "(<)([a-zA-Z]+(\\.?[a-zA-Z0-9]+)*)?",
+          "beginCaptures": {
+            "1": { "name": "punctuation.docsy" },
+            "2": { "name": "opening.tag.docsy" }
+          },
+          "patterns": [
+            { "include": "#attributes" },
+            {
+              "comment": "Childrens",
+              "contentName": "children.tag.docsy",
+              "begin": "(>)",
+              "beginCaptures": {
+                "1": { "name": "punctuation.docsy" }
+              },
+              "end": "(?=^)",
+              "patterns": [{ "include": "#children" }]
+            }
+          ],
+          "end": "(?=^)"
+        },
+        {
+          "comment": "Fragment",
+          "name": "tag.docsy",
+          "begin": "(<\\|>)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.docsy" }
+          },
+          "patterns": [{ "include": "#children" }],
+          "end": "(<\\/>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.docsy" }
+          }
+        },
+        {
+          "comment": "Raw Fragment",
+          "name": "tag.docsy",
+          "begin": "(<#>)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.docsy" }
+          },
+          "patterns": [
+            {
+              "comment": "Raw content",
+              "contentName": "raw.docsy",
+              "begin": "(?!(<\\/>))",
+              "end": "(?=(<\\/>))"
+            }
+          ],
+          "end": "(<\\/>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.docsy" }
           }
         }
       ]
