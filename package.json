@@ -2,7 +2,7 @@
   "name": "docsy",
   "displayName": "Docsy",
   "description": "Support for Docsy syntax",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "publisher": "etienne-dldc",
   "repository": "https://github.com/etienne-dldc/vscode-docsy",
   "engines": {
