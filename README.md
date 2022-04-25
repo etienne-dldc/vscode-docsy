@@ -4,6 +4,10 @@ This extension add support for the [Docsy syntax language](https://github.com/et
 
 ## Release Notes
 
+### 0.4.2
+
+Remove deps
+
 ### 0.4.1
 
 Fix attribute
