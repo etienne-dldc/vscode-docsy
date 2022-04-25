@@ -175,7 +175,7 @@
         {
           "comment": "Attribute",
           "name": "meta.tag.attributes.docsy",
-          "begin": "([ \\t\\n\\r]+|^)([a-zA-Z_][A-Za-z0-9_$]*)(=)(?!(>| |$))",
+          "begin": "(\\s+|^)([a-zA-Z_][A-Za-z0-9_$]*)(=)(?!(>| |\\/))",
           "beginCaptures": {
             "2": { "name": "entity.other.attribute-name.docsy" },
             "3": { "name": "meta.tag.docsy" },
@@ -187,7 +187,7 @@
         {
           "comment": "Boolean attribute",
           "name": "meta.tag.attributes.docsy",
-          "match": "([ \\t\\n\\r]+|^)([a-zA-Z_][A-Za-z0-9_$]*)(?=(>| |$))",
+          "match": "(\\s+|^)([a-zA-Z_][A-Za-z0-9_$]*)(?=(>| |\\/))",
           "captures": {
             "2": { "name": "entity.other.attribute-name.docsy" }
           }
@@ -312,7 +312,7 @@
       "patterns": [
         { "match": ",", "name": "punctuation.separator.key-value.docsy" },
         {
-          "begin": "([ \\t\\n\\r]+)([A-Za-z][A-Za-z0-9_$]*):",
+          "begin": "(\\s+)([A-Za-z][A-Za-z0-9_$]*):",
           "end": "(?=(\\}|,))",
           "beginCaptures": {
             "2": { "name": "meta.object-literal.key.docsy" }
@@ -320,7 +320,7 @@
           "patterns": [{ "include": "#expression" }]
         },
         {
-          "begin": "([ \\t\\n\\r]+)('[^']+'):",
+          "begin": "(\\s+)('[^']+'):",
           "beginCaptures": {
             "2": { "name": "meta.object-literal.key.docsy" }
           },
@@ -328,7 +328,7 @@
           "patterns": [{ "include": "#expression" }]
         },
         {
-          "begin": "([ \\t\\n\\r]+)(\"[^\"]+\"):",
+          "begin": "(\\s+)(\"[^\"]+\"):",
           "beginCaptures": {
             "2": { "name": "meta.object-literal.key.docsy" }
           },
