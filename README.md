@@ -4,6 +4,14 @@ This extension add support for the [Docsy syntax language](https://github.com/et
 
 ## Release Notes
 
+### 0.4.1
+
+Fix attribute
+
+### 0.4.0
+
+Fix new syntax
+
 ### 0.2.0
 
 New syntax.
