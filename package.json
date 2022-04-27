@@ -1,7 +1,7 @@
 {
   "name": "docsy",
   "displayName": "Docsy",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Support for Docsy syntax",
   "categories": [
     "Programming Languages"
